@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: manual_testing
+  name: manual_testing
+  labels:
+    app: manual_testing
+spec:
+  selector:
+    matchLabels:
+      app: manual_testing
+  template:
+    metadata:
+      labels:
+        app: manual_testing
+        name: manual_testing
+    spec:
+      containers:
+        - name: manual_testing
+          image: bheemeshkammak/manual_testing/manual_testing
+          imagePullPolicy: Always
+        
+          env:
+            - name: SERVICE_NAME
+              value: "go-app"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "localhost:4317"
+            - name: INSECURE_MODE
+              value: "true"
+        
+          ports:
+        
+        
+          - containerPort: 5678
+            name: http
+        
+        
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 15
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+        

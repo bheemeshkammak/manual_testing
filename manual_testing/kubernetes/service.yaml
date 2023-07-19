@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: manual_testing
+  labels:
+    app: manual_testing
+  name: manual_testing
+spec:
+  ports:
+  
+    - protocol: TCP
+      port: 5678
+      targetPort: 5678
+   
+   
+  selector:
+    app: manual_testing
+  type: ClusterIP

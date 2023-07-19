@@ -1,0 +1,43 @@
+{
+  "name": "Go",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest"
+    }
+  },
+  "postCreateCommand": "kind create cluster --name manual_testing || true",
+  "mounts": [
+    {
+      "type": "volume",
+      "source": "manual_testing",
+      "target": "/home/vscode"
+    }
+  ],
+  "customizations": {
+    "devpod": {
+      "prebuildRepository": "fdog239/prebuilds"
+    },
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  },
+  "forwardPorts": [
+    
+        5678
+    
+  ],
+  "portsAttributes": {
+    
+        "5678": {
+          "label": "Hello Remote World",
+          "onAutoForward": "notify"
+        }
+    
+  }
+}
